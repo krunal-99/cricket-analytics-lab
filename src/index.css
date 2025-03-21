@@ -1,0 +1,137 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 60 100% 99%;
+    --foreground: 240 10% 3.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 5.9% 10%;
+
+    --radius: 0.2rem;
+    
+    --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    font-family: var(--font-sans);
+  }
+  
+  body {
+    @apply bg-background text-foreground bg-gradient-noise;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
+}
+
+@layer components {
+  .neo-card {
+    @apply bg-white border-4 border-neo-black shadow-[8px_8px_0px_0px_rgba(0,0,0)] transition-transform duration-200 hover:translate-y-[-4px] hover:shadow-[8px_12px_0px_0px_rgba(0,0,0)];
+  }
+  
+  .neo-tilt {
+    @apply rotate-[-2deg] hover:rotate-0 transition-transform;
+  }
+  
+  .neo-button {
+    @apply inline-flex items-center justify-center rounded-sm border-4 border-neo-black bg-white px-6 py-3 text-base font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0)] transition-all hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0)] active:translate-y-[0px] active:shadow-[0px_0px_0px_0px_rgba(0,0,0)];
+  }
+  
+  .neo-button-yellow {
+    @apply neo-button bg-neo-yellow text-neo-black;
+  }
+  
+  .neo-button-blue {
+    @apply neo-button bg-neo-blue text-white;
+  }
+  
+  .neo-button-red {
+    @apply neo-button bg-neo-red text-white;
+  }
+  
+  .neo-input {
+    @apply rounded-sm border-4 border-neo-black bg-white px-4 py-2 text-base shadow-[4px_4px_0px_0px_rgba(0,0,0)];
+  }
+  
+  .neo-select {
+    @apply neo-input appearance-none pr-8 relative;
+  }
+  
+  .neo-table {
+    @apply w-full border-4 border-neo-black bg-white text-left;
+  }
+  
+  .neo-table th {
+    @apply border-b-4 border-neo-black bg-neo-gray px-4 py-2 font-bold;
+  }
+  
+  .neo-table td {
+    @apply border-b border-neo-black px-4 py-2;
+  }
+  
+  .neo-table tr:hover {
+    @apply bg-neo-cream transition-colors;
+  }
+  
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .table-container {
+    @apply overflow-x-auto border-4 border-neo-black bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0)];
+  }
+  
+  /* Noise texture overlay */
+  .noise-overlay {
+    position: relative;
+  }
+  
+  .noise-overlay::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.005' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)' opacity='0.1'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.4;
+    z-index: 1;
+  }
+}
