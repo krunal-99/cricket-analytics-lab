@@ -1,69 +1,82 @@
-# Welcome to your Lovable project
+# IPL 2024 Analysis Dashboard
 
-## Project info
+![IPL 2024 Analysis](https://ipl-2024-analysis-kmp.vercel.app/logo.png)
 
-**URL**: https://lovable.dev/projects/7ff28a72-418b-4fa7-894b-4d3dea1fe618
+## 📊 Overview
 
-## How can I edit this code?
+An interactive web dashboard for comprehensive analysis of the Indian Premier League (IPL) 2024 cricket tournament. This project visualizes key performance metrics, team statistics, player accomplishments, and match insights through intuitive charts and interactive elements.
 
-There are several ways of editing your application.
+## ✨ Features
 
-**Use Lovable**
+- **Team-wise Analysis**: Compare performance metrics across all IPL 2024 teams
+- **Player Performance Tracking**: Visualize top performers in batting, bowling, and fielding
+- **Match-by-Match Breakdown**: Detailed insights for every match of the tournament
+- **Interactive Visualizations**: Dynamic charts with drill-down capabilities
+- **Responsive Design**: Optimized for both desktop and mobile viewing
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/7ff28a72-418b-4fa7-894b-4d3dea1fe618) and start prompting.
+## 🛠️ Technologies Used
 
-Changes made via Lovable will be committed automatically to this repo.
+- **Frontend**: React.js, Next.js, Tailwind CSS
+- **Data Visualization**: Recharts, D3.js
+- **State Management**: React Context API
+- **Deployment**: Vercel
 
-**Use your preferred IDE**
+## 📝 Data Sources
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+This dashboard uses comprehensive IPL 2024 data including:
+- Match results and scorecards
+- Player statistics (batting, bowling, fielding)
+- Team performance metrics
+- Tournament standings
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+Data is sourced from official IPL APIs and resources, ensuring accuracy and reliability.
 
-Follow these steps:
+## 🚀 Live Demo
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+Experience the live dashboard: [IPL 2024 Analysis](https://ipl-2024-analysis-kmp.vercel.app/)
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## 📷 Screenshots
 
-# Step 3: Install the necessary dependencies.
-npm i
+![image](https://github.com/user-attachments/assets/bf5184e6-4751-42c2-a801-c969d367d188)
+![image](https://github.com/user-attachments/assets/6a2ca6d1-7639-4f27-a64e-198877f4a71d)
+![image](https://github.com/user-attachments/assets/71d89e89-ec5f-4297-ae68-7984bc635189)
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+
+## 🔧 Installation and Setup
+
+To run this project locally:
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/ipl-2024-analysis.git
+
+# Navigate to project directory
+cd ipl-2024-analysis
+
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Open [http://localhost:3000](http://localhost:3000) to view the project in your browser.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 📈 Future Enhancements
 
-**Use GitHub Codespaces**
+- Historical data comparison with previous IPL seasons
+- Advanced statistical analyses (win probability models, player impact scores)
+- User customizable dashboards and reports
+- Performance prediction algorithms
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 👨‍💻 Contributing
 
-## What technologies are used for this project?
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-This project is built with .
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/7ff28a72-418b-4fa7-894b-4d3dea1fe618) and click on Share -> Publish.
-
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+*Made with ❤
