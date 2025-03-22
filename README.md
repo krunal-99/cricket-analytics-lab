@@ -1,7 +1,5 @@
 # IPL 2024 Analysis Dashboard
 
-![IPL 2024 Analysis](https://ipl-2024-analysis-kmp.vercel.app/logo.png)
-
 ## 📊 Overview
 
 An interactive web dashboard for comprehensive analysis of the Indian Premier League (IPL) 2024 cricket tournament. This project visualizes key performance metrics, team statistics, player accomplishments, and match insights through intuitive charts and interactive elements.
