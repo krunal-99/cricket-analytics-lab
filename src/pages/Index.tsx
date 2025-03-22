@@ -52,14 +52,11 @@ interface InningsData {
   overs: number;
   batTeamName: string;
   bowlTeamName: string;
-  batTeamDetails: {
-    batsmenData: Record<string, BatsmanData>;
-  };
-  bowlTeamDetails: {
-    bowlersData: Record<string, BowlerData>;
-  };
+  batTeamDetails: { batsmenData: Record<string, BatsmanData> };
+  bowlTeamDetails: { bowlersData: Record<string, BowlerData> };
   extrasData: ExtrasData;
 }
+
 interface MatchData {
   matchDesc: string;
   team1Name: string;
@@ -75,40 +72,122 @@ interface MatchData {
   scorecard?: InningsData[];
 }
 
-const playerStats = [
+const batsmenStats = [
   {
     name: "Virat Kohli",
     team: "RCB",
-    runs: 500,
-    avg: 62.5,
-    sr: 150.2,
+    runs: 741,
+    avg: 61.5,
+    sr: 154.69,
     hs: 113,
+  },
+  {
+    name: "Ruturaj Gaikwad",
+    team: "CSK",
+    runs: 583,
+    avg: 53.0,
+    sr: 141.16,
+    hs: 108,
+  },
+  {
+    name: "Riyan Parag",
+    team: "RR",
+    runs: 573,
+    avg: 52.09,
+    sr: 149.21,
+    hs: 84,
+  },
+  {
+    name: "Travis Head",
+    team: "SRH",
+    runs: 567,
+    avg: 40.5,
+    sr: 191.55,
+    hs: 102,
+  },
+  {
+    name: "Sanju Samson",
+    team: "RR",
+    runs: 531,
+    avg: 48.27,
+    sr: 153.46,
+    hs: 86,
+  },
+  {
+    name: "Sai Sudarshan",
+    team: "GT",
+    runs: 527,
+    avg: 47.91,
+    sr: 141.28,
+    hs: 103,
+  },
+  {
+    name: "K L Rahul",
+    team: "LSG",
+    runs: 520,
+    avg: 37.14,
+    sr: 136.12,
+    hs: 82,
+  },
+];
+
+const bowlerStats = [
+  {
+    name: "Harshal Patel",
+    team: "PBKS",
+    wickets: 24,
+    mat: 14,
+    eco: 9.73,
+    best: "15/3",
+  },
+  {
+    name: "Varun Chakravarthy",
+    team: "KKR",
+    wickets: 21,
+    mat: 15,
+    eco: 8.04,
+    best: "16/3",
   },
   {
     name: "Jasprit Bumrah",
     team: "MI",
     wickets: 20,
-    economy: 6.4,
-    avg: 15.2,
-    best: "4/20",
+    mat: 13,
+    eco: 6.48,
+    best: "21/5",
   },
   {
-    name: "Jos Buttler",
+    name: "T Natrajan",
+    team: "SRH",
+    wickets: 19,
+    mat: 14,
+    eco: 9.05,
+    best: "19/4",
+  },
+  {
+    name: "Harshit Rana",
+    team: "KKR",
+    wickets: 19,
+    mat: 13,
+    eco: 9.08,
+    best: "24/3",
+  },
+  {
+    name: "Avesh Khan",
     team: "RR",
-    runs: 470,
-    avg: 58.75,
-    sr: 155.3,
-    hs: 107,
+    wickets: 19,
+    mat: 16,
+    eco: 9.59,
+    best: "27/3",
   },
   {
-    name: "Ravindra Jadeja",
-    team: "CSK",
-    wickets: 15,
-    economy: 7.2,
-    avg: 18.4,
-    best: "3/18",
+    name: "Arshdeep Singh",
+    team: "PBKS",
+    wickets: 19,
+    mat: 14,
+    eco: 10.03,
+    best: "29/4",
   },
-  { name: "KL Rahul", team: "LSG", runs: 445, avg: 55.63, sr: 145.1, hs: 95 },
 ];
 
 function transformMatchData(
@@ -116,7 +195,6 @@ function transformMatchData(
   scoreCardData: any[]
 ): MatchData[] {
   const matchesMap = new Map<number, any>();
-
   matchesData.forEach((item) => {
     if (item?.matchDetailsMap?.match) {
       item.matchDetailsMap.match.forEach((match: any) => {
@@ -250,6 +328,8 @@ function transformScorecardData(
 const Index = () => {
   const [selectedMatch, setSelectedMatch] = useState<MatchData | null>(null);
   const [selectedGround, setSelectedGround] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 12;
 
   const transformedMatches = transformMatchData(matches, scoreCard);
   const uniqueGroundsFromData = Array.from(
@@ -259,38 +339,24 @@ const Index = () => {
     ? transformedMatches.filter((match) => match.ground === selectedGround)
     : transformedMatches;
 
+  const totalPages = Math.ceil(filteredMatches.length / itemsPerPage);
+  const indexOfLastMatch = currentPage * itemsPerPage;
+  const indexOfFirstMatch = indexOfLastMatch - itemsPerPage;
+  const currentMatches = filteredMatches.slice(
+    indexOfFirstMatch,
+    indexOfLastMatch
+  );
+
   const handleRowClick = (match: MatchData) => {
     const matchScorecard = transformScorecardData(scoreCard, match.matchId);
     setSelectedMatch({ ...match, scorecard: matchScorecard });
   };
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 12;
-
-  // Calculate total pages
-  const totalPages = Math.ceil(matches.length / itemsPerPage);
-
-  // Get current page matches
-  const indexOfLastMatch = currentPage * itemsPerPage;
-  const indexOfFirstMatch = indexOfLastMatch - itemsPerPage;
-  const currentMatches = transformedMatches.slice(
-    indexOfFirstMatch,
-    indexOfLastMatch
-  );
-
-  // Handle page changes
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
 
-  // Generate page numbers for pagination
-  // const pageNumbers = [];
-  // for (let i = 1; i <= totalPages; i++) {
-  //   pageNumbers.push(i);
-  // }
-
   const getPaginationItems = () => {
-    // For small number of pages, show all
     if (totalPages <= 7) {
       return Array.from({ length: totalPages }, (_, i) => i + 1).map(
         (number) => (
@@ -311,10 +377,7 @@ const Index = () => {
       );
     }
 
-    // For large number of pages, use ellipsis
     const items = [];
-
-    // Always show first page
     items.push(
       <PaginationItem key={1}>
         <PaginationLink
@@ -331,7 +394,6 @@ const Index = () => {
       </PaginationItem>
     );
 
-    // Add ellipsis if not showing second page
     if (currentPage > 3) {
       items.push(
         <PaginationItem key="ellipsis-1">
@@ -340,7 +402,6 @@ const Index = () => {
       );
     }
 
-    // Add pages around current page
     const startPage = Math.max(2, currentPage - 1);
     const endPage = Math.min(totalPages - 1, currentPage + 1);
 
@@ -362,7 +423,6 @@ const Index = () => {
       );
     }
 
-    // Add ellipsis if not showing second-to-last page
     if (currentPage < totalPages - 2) {
       items.push(
         <PaginationItem key="ellipsis-2">
@@ -371,7 +431,6 @@ const Index = () => {
       );
     }
 
-    // Always show last page
     items.push(
       <PaginationItem key={totalPages}>
         <PaginationLink
@@ -399,91 +458,33 @@ const Index = () => {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <AnalyticsCard title="Total Matches" color="yellow">
-            <div className="text-5xl font-black text-center py-6">70</div>
-            <div className="text-center">Scheduled Matches</div>
+            <div className="text-5xl font-black text-center py-6">
+              {transformedMatches.length}
+            </div>
           </AnalyticsCard>
-          <AnalyticsCard title="Matches Completed" color="blue">
-            <div className="text-5xl font-black text-center py-6">32</div>
-            <div className="text-center">45.7% Complete</div>
+          <AnalyticsCard title="Total Boundaries" color="blue">
+            <div className="text-5xl font-black text-center py-6">3413</div>
           </AnalyticsCard>
-          <AnalyticsCard title="Run Rate" color="red">
-            <div className="text-5xl font-black text-center py-6">9.2</div>
-            <div className="text-center">Runs per Over</div>
+          <AnalyticsCard title="Avg. Fours/Match" color="red">
+            <div className="text-5xl font-black text-center py-6">30.5</div>
           </AnalyticsCard>
-          <AnalyticsCard title="Boundaries" color="green">
-            <div className="text-5xl font-black text-center py-6">1245</div>
-            <div className="text-center">Fours + Sixes</div>
+          <AnalyticsCard title="Avg. Sixes/Match" color="green">
+            <div className="text-5xl font-black text-center py-6">17.5</div>
           </AnalyticsCard>
         </div>
       </section>
 
-      {/* <section className="mb-10">
-        <h2 className="text-2xl font-black tracking-tight mb-6">
-          Recent Matches
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {currentMatches.map((match, index) => (
-            <MatchCard
-              key={index}
-              {...match}
-              featured={index === 0 && currentPage === 1}
-            />
-          ))}
-          {totalPages > 1 && (
-            <div className="mt-8">
-              <Pagination>
-                <PaginationContent>
-                  {currentPage > 1 && (
-                    <PaginationItem>
-                      <PaginationPrevious
-                        onClick={() => handlePageChange(currentPage - 1)}
-                        className="neo-button cursor-pointer"
-                      />
-                    </PaginationItem>
-                  )}
-
-                  {pageNumbers.map((number) => (
-                    <PaginationItem key={number}>
-                      <PaginationLink
-                        onClick={() => handlePageChange(number)}
-                        isActive={currentPage === number}
-                        className={
-                          currentPage === number
-                            ? "neo-button-yellow cursor-pointer font-bold"
-                            : "neo-button cursor-pointer"
-                        }
-                      >
-                        {number}
-                      </PaginationLink>
-                    </PaginationItem>
-                  ))}
-
-                  {currentPage < totalPages && (
-                    <PaginationItem>
-                      <PaginationNext
-                        onClick={() => handlePageChange(currentPage + 1)}
-                        className="neo-button cursor-pointer"
-                      />
-                    </PaginationItem>
-                  )}
-                </PaginationContent>
-              </Pagination>
-            </div>
-          )}
-        </div>
-      </section> */}
-
       <section className="mb-10">
         <h2 className="text-2xl font-black tracking-tight mb-6 text-center">
-          Recent Matches
+          All Matches
         </h2>
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {currentMatches.map((match, index) => (
             <MatchCard
-              key={index}
+              key={match.matchId}
               {...match}
               featured={index === 0 && currentPage === 1}
+              onClick={() => handleRowClick(match)}
             />
           ))}
         </div>
@@ -500,9 +501,7 @@ const Index = () => {
                     />
                   </PaginationItem>
                 )}
-
                 {getPaginationItems()}
-
                 {currentPage < totalPages && (
                   <PaginationItem>
                     <PaginationNext
@@ -518,7 +517,37 @@ const Index = () => {
       </section>
 
       <section className="mb-10">
-        <AnalyticsCard title="Top Performers" color="white">
+        <AnalyticsCard title="Top Batters" color="white">
+          <div className="overflow-x-auto">
+            <table className="neo-table w-full">
+              <thead>
+                <tr>
+                  <th>Player</th>
+                  <th>Team</th>
+                  <th>Runs</th>
+                  <th>Avg</th>
+                  <th>SR</th>
+                  <th>Best</th>
+                </tr>
+              </thead>
+              <tbody>
+                {batsmenStats.map((player, index) => (
+                  <tr key={index}>
+                    <td className="font-bold">{player.name}</td>
+                    <td>{player.team}</td>
+                    <td>{player.runs}</td>
+                    <td>{player.avg}</td>
+                    <td>{player.sr}</td>
+                    <td>{player.hs}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </AnalyticsCard>
+      </section>
+      <section className="mb-10">
+        <AnalyticsCard title="Top Bowlers" color="white">
           <div className="overflow-x-auto">
             <table className="neo-table w-full">
               <thead>
@@ -532,14 +561,14 @@ const Index = () => {
                 </tr>
               </thead>
               <tbody>
-                {playerStats.map((player, index) => (
+                {bowlerStats.map((player, index) => (
                   <tr key={index}>
                     <td className="font-bold">{player.name}</td>
                     <td>{player.team}</td>
-                    <td>{player.runs || player.wickets}</td>
-                    <td>{player.avg || player.economy}</td>
-                    <td>{player.sr || player.avg}</td>
-                    <td>{player.hs || player.best}</td>
+                    <td>{player.wickets}</td>
+                    <td>{player.mat}</td>
+                    <td>{player.eco}</td>
+                    <td>{player.best}</td>
                   </tr>
                 ))}
               </tbody>
@@ -553,7 +582,10 @@ const Index = () => {
           <div style={{ marginBottom: "20px" }}>
             <select
               value={selectedGround || ""}
-              onChange={(e) => setSelectedGround(e.target.value || null)}
+              onChange={(e) => {
+                setSelectedGround(e.target.value || null);
+                setCurrentPage(1);
+              }}
               style={{
                 padding: "10px 15px",
                 fontSize: "16px",
@@ -647,6 +679,7 @@ const Index = () => {
           />
         </AnalyticsCard>
       </section>
+
       {selectedMatch && (
         <MatchScorecard
           matchData={selectedMatch}

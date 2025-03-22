@@ -28,7 +28,6 @@ export function DataTable<T>({
     direction: "ascending",
   });
 
-  // Handle sorting
   const requestSort = (key: string) => {
     let direction = "ascending";
     if (sortConfig.key === key && sortConfig.direction === "ascending") {
@@ -41,11 +40,9 @@ export function DataTable<T>({
     if (!sortConfig.key) return data;
 
     return [...data].sort((a, b) => {
-      // @ts-ignore - We know the key exists in our data
       if (a[sortConfig.key] < b[sortConfig.key]) {
         return sortConfig.direction === "ascending" ? -1 : 1;
       }
-      // @ts-ignore - We know the key exists in our data
       if (a[sortConfig.key] > b[sortConfig.key]) {
         return sortConfig.direction === "ascending" ? 1 : -1;
       }
@@ -94,10 +91,7 @@ export function DataTable<T>({
             >
               {columns.map((column) => (
                 <td key={`${index}-${column.key}`}>
-                  {column.render
-                    ? column.render(item)
-                    : // @ts-ignore - We know the key exists in our data
-                      item[column.key]}
+                  {column.render ? column.render(item) : item[column.key]}
                 </td>
               ))}
             </tr>

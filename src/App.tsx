@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -8,7 +7,7 @@ import Index from "./pages/Index";
 import TeamAnalysis from "./pages/TeamAnalysis";
 import Players from "./pages/Players";
 import Venues from "./pages/Venues";
-import Predictions from "./pages/Predictions";
+import Predictions from "./pages/Comparison";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,8 +23,7 @@ const App = () => (
           <Route path="/teams" element={<TeamAnalysis />} />
           <Route path="/players" element={<Players />} />
           <Route path="/venues" element={<Venues />} />
-          <Route path="/predictions" element={<Predictions />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/comparison" element={<Predictions />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

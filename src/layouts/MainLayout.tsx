@@ -1,6 +1,4 @@
-
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
 import { NavBar } from "@/components/NavBar";
 
 interface MainLayoutProps {
@@ -18,7 +16,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         <div className="container mx-auto px-4 text-center">
           <p className="text-neo-gray">IPL 2024 Analytics Dashboard</p>
           <p className="text-xs mt-2 text-neo-gray/60">
-            Data visualizations powered by Cricket Analytics Lab
+            Created with Love by Krunal Pokar❤️
           </p>
         </div>
       </footer>

@@ -786,7 +786,6 @@ export const MatchScorecard: React.FC<MatchScorecardProps> = ({
                 </div>
               </div>
 
-              {/* Fixed Extras section with better tag visibility */}
               <div className="bg-white border-2 border-neo-black p-3 rounded-md my-4">
                 <div className="font-bold flex items-center text-neo-black mb-2">
                   <Flag className="h-4 w-4 mr-2" />
